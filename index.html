@@ -8,6 +8,38 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Archivo:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Google tag (gtag.js) - Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-FEG2S0X03D"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-FEG2S0X03D', {
+        'send_page_view': true,
+        'custom_map': {
+          'dimension1': 'utm_source',
+          'dimension2': 'utm_medium',
+          'dimension3': 'utm_campaign',
+          'dimension4': 'utm_content'
+        }
+      });
+    </script>
+
+    <!-- Hotjar Tracking Code - COMENTADO (activar cuando quieras usar los 15 días) -->
+    <!--
+    <script>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:YOUR_HOTJAR_ID,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+    -->
 </head>
 <body>
     <!-- HERO SECTION -->
@@ -297,78 +329,7 @@
         <p>&copy; 2026 Lucía Figuls. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- Tracking scripts placeholder -->
-    <!-- Add your tracking scripts here -->
-    <script>
-        // Tracking de eventos
-        document.addEventListener('DOMContentLoaded', function() {
-
-            // Tracking de reproducción de video
-            const video = document.querySelector('.video-player');
-            if (video) {
-                let videoStarted = false;
-
-                video.addEventListener('play', function() {
-                    if (!videoStarted) {
-                        console.log('Video iniciado');
-                        videoStarted = true;
-
-                        // Google Analytics (cuando lo agregues)
-                        if (typeof gtag !== 'undefined') {
-                            gtag('event', 'video_start', {
-                                'event_category': 'Video',
-                                'event_label': '3 Tips Branding'
-                            });
-                        }
-
-                        // Facebook Pixel (cuando lo agregues)
-                        if (typeof fbq !== 'undefined') {
-                            fbq('track', 'ViewContent', {
-                                content_name: 'Video 3 Tips',
-                                content_type: 'video'
-                            });
-                        }
-                    }
-                });
-
-                // Tracking cuando completan el video
-                video.addEventListener('ended', function() {
-                    console.log('Video completado');
-
-                    if (typeof gtag !== 'undefined') {
-                        gtag('event', 'video_complete', {
-                            'event_category': 'Video',
-                            'event_label': '3 Tips Branding'
-                        });
-                    }
-                });
-            }
-
-            // Tracking de clics en botones CTA
-            document.querySelectorAll('.cta-button').forEach(function(button) {
-                button.addEventListener('click', function() {
-                    const buttonText = this.textContent.trim();
-                    console.log('CTA clic:', buttonText);
-
-                    // Google Analytics
-                    if (typeof gtag !== 'undefined') {
-                        gtag('event', 'click', {
-                            'event_category': 'CTA',
-                            'event_label': buttonText
-                        });
-                    }
-
-                    // Facebook Pixel
-                    if (typeof fbq !== 'undefined') {
-                        fbq('track', 'Lead', {
-                            content_name: buttonText
-                        });
-                    }
-                });
-            });
-
-            console.log('Página cargada - Tracking configurado');
-        });
-    </script>
+    <!-- Sistema de Tracking Completo -->
+    <script src="tracking.js"></script>
 </body>
 </html>
