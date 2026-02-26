@@ -571,7 +571,6 @@ body {
     max-width: 450px;
     height: auto;
     transform: rotate(-8deg);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
 }
 
 .faq-content {
