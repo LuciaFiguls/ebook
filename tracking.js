@@ -280,6 +280,14 @@
     observer: null,
 
     init: function() {
+      // Restaurar secciones ya vistas de sessionStorage para sobrevivir cambios de pestaña
+      try {
+        const stored = sessionStorage.getItem('viewed_sections');
+        if (stored) {
+          JSON.parse(stored).forEach(id => this.viewedSections.add(id));
+        }
+      } catch(e) {}
+
       const observerOptions = {
         root: null,
         rootMargin: '0px',
@@ -309,6 +317,9 @@
 
           if (sectionData) {
             this.viewedSections.add(entry.target.id);
+            try {
+              sessionStorage.setItem('viewed_sections', JSON.stringify([...this.viewedSections]));
+            } catch(e) {}
             this.trackSectionView(sectionData);
           }
         }
@@ -617,6 +628,7 @@
 
       if (sent) {
         this.dataSent = true; // Marcar como enviado
+        EventBackup.clear(); // Limpiar backup para evitar reenvíos duplicados
         console.log('✅ Datos enviados a Google Sheets:', events.length);
 
         // Resetear dataSent después de 30 segundos para permitir nuevos envíos
