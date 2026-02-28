@@ -336,9 +336,9 @@
                     📩 Entrega automática por mail al instante
                 </p>
             </div>
-            <a href="https://luciafiguls.systeme.io/ebookars" class="cta-button center-btn large" target="_blank" rel="noopener">
+            <button id="btn-comprar" class="cta-button center-btn large" onclick="iniciarPago()">
                 Lo quiero POR SÓLO $18.000
-            </a>
+            </button>
         </div>
     </section>
 
@@ -346,6 +346,35 @@
     <footer style="background-color: #000000; color: white; padding: 40px 20px; text-align: center;">
         <p>&copy; 2026 Lucía Figuls. Todos los derechos reservados.</p>
     </footer>
+
+    <!-- MercadoPago Checkout -->
+    <script>
+        async function iniciarPago() {
+            const btn = document.getElementById('btn-comprar');
+            btn.textContent = 'Procesando...';
+            btn.disabled = true;
+
+            try {
+                const response = await fetch('/.netlify/functions/create-preference', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                });
+
+                const data = await response.json();
+
+                if (data.init_point) {
+                    window.location.href = data.init_point;
+                } else {
+                    throw new Error('No se recibió el link de pago');
+                }
+            } catch (err) {
+                console.error(err);
+                btn.textContent = 'Lo quiero POR SÓLO $18.000';
+                btn.disabled = false;
+                alert('Hubo un error al iniciar el pago. Por favor intentá de nuevo.');
+            }
+        }
+    </script>
 
     <!-- Sistema de Tracking Completo -->
     <script src="tracking.js"></script>
