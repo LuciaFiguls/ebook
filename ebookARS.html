@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprar - De Invisible a Irresistible</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --orange: #e96126;
+            --green: #327e56;
+            --cream: #f5f0eb;
+            --border: #e0d8d0;
+            --text: #1a1a1a;
+            --muted: #666;
+        }
+
+        body {
+            font-family: 'Archivo', sans-serif;
+            background: #fff;
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* LAYOUT */
+        .checkout-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 100vh;
+        }
+
+        /* PANEL IZQUIERDO */
+        .product-panel {
+            background: var(--cream);
+            padding: 60px 48px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .product-panel h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--green);
+            line-height: 1.2;
+        }
+
+        .product-panel h2 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--green);
+            margin-top: -20px;
+        }
+
+        .product-cover {
+            width: 160px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+        }
+
+        .benefits-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .benefits-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 15px;
+            line-height: 1.5;
+            color: var(--text);
+        }
+
+        .benefits-list li::before {
+            content: '';
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            background: var(--orange);
+            border-radius: 4px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+            background-size: 13px;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-top: 2px;
+        }
+
+        /* PANEL DERECHO */
+        .checkout-panel {
+            background: #fff;
+            padding: 60px 48px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-group label .required {
+            color: var(--orange);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: 'Archivo', sans-serif;
+            color: var(--text);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus {
+            border-color: var(--orange);
+        }
+
+        .form-group input.error {
+            border-color: #e53e3e;
+        }
+
+        .field-error {
+            font-size: 12px;
+            color: #e53e3e;
+            display: none;
+        }
+
+        /* Método de pago */
+        .payment-method-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .payment-method-label .required {
+            color: var(--orange);
+        }
+
+        .method-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 16px;
+            border: 1.5px solid var(--border);
+            border-radius: 8px 8px 0 0;
+            background: #fafafa;
+        }
+
+        .method-selector input[type="radio"] {
+            accent-color: var(--orange);
+            width: 16px;
+            height: 16px;
+        }
+
+        .method-selector span {
+            font-size: 14px;
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .card-brands {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .card-brands img {
+            height: 20px;
+        }
+
+        #cardPaymentBrick_container {
+            border: 1.5px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            padding: 16px;
+            min-height: 120px;
+        }
+
+        /* Resumen */
+        .order-summary {
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .order-summary-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--orange);
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .order-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+        }
+
+        .order-item-radio {
+            accent-color: var(--orange);
+            width: 16px;
+            height: 16px;
+        }
+
+        .order-item-name {
+            flex: 1;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .order-item-price {
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .currency-badge {
+            background: #e0e0e0;
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-size: 11px;
+            font-weight: 700;
+            color: #444;
+        }
+
+        /* Cupón */
+        .coupon-row {
+            display: flex;
+            gap: 8px;
+            padding: 12px 16px;
+            border-top: 1px solid var(--border);
+        }
+
+        .coupon-row input {
+            flex: 1;
+            padding: 9px 12px;
+            border: 1.5px solid var(--border);
+            border-radius: 6px;
+            font-size: 14px;
+            font-family: 'Archivo', sans-serif;
+            outline: none;
+            color: var(--muted);
+        }
+
+        .coupon-row button {
+            padding: 9px 16px;
+            background: #555;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            font-family: 'Archivo', sans-serif;
+        }
+
+        /* Botón pagar */
+        .btn-pay {
+            width: 100%;
+            padding: 16px;
+            background: var(--orange);
+            color: #fff;
+            border: none;
+            border-radius: 40px;
+            font-size: 17px;
+            font-weight: 700;
+            font-family: 'Archivo', sans-serif;
+            cursor: pointer;
+            transition: opacity 0.2s, transform 0.1s;
+        }
+
+        .btn-pay:hover { opacity: 0.9; }
+        .btn-pay:active { transform: scale(0.99); }
+        .btn-pay:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        /* Feedback */
+        .payment-feedback {
+            padding: 14px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            display: none;
+        }
+
+        .payment-feedback.success {
+            background: #f0fdf4;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+
+        .payment-feedback.error {
+            background: #fff5f5;
+            color: #c53030;
+            border: 1px solid #fed7d7;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .checkout-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .product-panel, .checkout-panel {
+                padding: 40px 24px;
+            }
+
+            .product-panel h1 { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="checkout-wrapper">
+
+    <!-- PANEL IZQUIERDO: Info del producto -->
+    <div class="product-panel">
+        <div>
+            <h1>De Invisible a Irresistible</h1>
+            <h2>Ebook de diseño de marca</h2>
+        </div>
+
+        <img src="images/FAQ-Image-nobg.png" alt="De Invisible a Irresistible - Ebook" class="product-cover">
+
+        <ul class="benefits-list">
+            <li>Definir tu identidad visual.</li>
+            <li>Elegir una paleta de colores con intención.</li>
+            <li>Combinar tipografías que te representen.</li>
+            <li>Componer tus piezas con equilibrio y claridad.</li>
+            <li>Crear contenido coherente para Instagram, tu sitio web y tus emails.</li>
+            <li>Usar herramientas para alinear tu imagen con tu propósito.</li>
+            <li>Evitar errores comunes con consejos de diseño pensados para no-diseñadoras.</li>
+            <li>Ejercicios para verte desde afuera.</li>
+            <li>Bono de regalo: 9 plantillas de Canva</li>
+            <li>Aprender cómo editar en Canva</li>
+        </ul>
+    </div>
+
+    <!-- PANEL DERECHO: Formulario de pago -->
+    <div class="checkout-panel">
+
+        <div class="form-group">
+            <label>Nombre <span class="required">*</span></label>
+            <input type="text" id="payer-name" placeholder="Tu nombre completo" autocomplete="name">
+            <span class="field-error" id="error-name">Ingresá tu nombre</span>
+        </div>
+
+        <div class="form-group">
+            <label>Correo <span class="required">*</span></label>
+            <input type="email" id="payer-email" placeholder="tu@email.com" autocomplete="email">
+            <span class="field-error" id="error-email">Ingresá un email válido</span>
+        </div>
+
+        <div class="form-group">
+            <input type="text" id="payer-dni" placeholder="DNI" autocomplete="off">
+        </div>
+
+        <div>
+            <p class="payment-method-label">Método de pago <span class="required">*</span></p>
+            <div class="method-selector">
+                <input type="radio" checked readonly>
+                <span>Tarjeta de crédito o débito (MercadoPago)</span>
+                <div class="card-brands">
+                    <img src="https://http2.mlstatic.com/frontend-assets/mp-web-navigation/ui-navigation/5.21.22/mercadopago/logos/visa.svg" alt="Visa">
+                    <img src="https://http2.mlstatic.com/frontend-assets/mp-web-navigation/ui-navigation/5.21.22/mercadopago/logos/mastercard.svg" alt="Mastercard">
+                    <img src="https://http2.mlstatic.com/frontend-assets/mp-web-navigation/ui-navigation/5.21.22/mercadopago/logos/amex.svg" alt="Amex">
+                </div>
+            </div>
+            <div id="cardPaymentBrick_container"></div>
+        </div>
+
+        <div class="order-summary">
+            <p class="order-summary-title">Detalles de la compra</p>
+            <div class="order-item">
+                <input type="radio" class="order-item-radio" checked readonly>
+                <span class="order-item-name">Ebook De Invisible a Irresistible</span>
+                <span class="order-item-price">
+                    <span class="currency-badge">ARS</span>
+                    18.000,00 $
+                </span>
+            </div>
+            <div class="coupon-row">
+                <input type="text" placeholder="cupon descuento" id="coupon-input">
+                <button type="button">Aplicar</button>
+            </div>
+        </div>
+
+        <div class="payment-feedback" id="payment-feedback"></div>
+
+        <button class="btn-pay" id="btn-pay" type="button" onclick="procesarPago()">
+            Comprar ahora
+        </button>
+
+    </div>
+</div>
+
+<!-- SDK MercadoPago -->
+<script src="https://sdk.mercadopago.com/js/v2"></script>
+<script>
+    const MP_PUBLIC_KEY = 'TEST-313c6ac5-9885-4f91-8c09-01f2da66d0ea';
+
+    const mp = new MercadoPago(MP_PUBLIC_KEY, { locale: 'es-AR' });
+
+    let cardFormData = null;
+
+    const bricks = mp.bricks();
+
+    bricks.create('cardPayment', 'cardPaymentBrick_container', {
+        initialization: {
+            amount: 18000,
+        },
+        customization: {
+            visual: {
+                hideFormTitle: true,
+                hidePaymentButton: true,
+                style: {
+                    theme: 'default',
+                    customVariables: {
+                        baseColor: '#e96126',
+                    }
+                }
+            },
+            paymentMethods: {
+                minInstallments: 1,
+                maxInstallments: 1,
+            },
+        },
+        callbacks: {
+            onReady: () => {
+                document.getElementById('btn-pay').disabled = false;
+            },
+            onSubmit: async (data) => {
+                cardFormData = data;
+            },
+            onError: (error) => {
+                console.error('MP Brick error:', error);
+            },
+        },
+    });
+
+    function validarCampos() {
+        let ok = true;
+
+        const name = document.getElementById('payer-name');
+        const email = document.getElementById('payer-email');
+        const errorName = document.getElementById('error-name');
+        const errorEmail = document.getElementById('error-email');
+
+        errorName.style.display = 'none';
+        errorEmail.style.display = 'none';
+        name.classList.remove('error');
+        email.classList.remove('error');
+
+        if (!name.value.trim()) {
+            name.classList.add('error');
+            errorName.style.display = 'block';
+            ok = false;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email.value.trim())) {
+            email.classList.add('error');
+            errorEmail.style.display = 'block';
+            ok = false;
+        }
+
+        return ok;
+    }
+
+    function mostrarFeedback(tipo, mensaje) {
+        const el = document.getElementById('payment-feedback');
+        el.className = `payment-feedback ${tipo}`;
+        el.textContent = mensaje;
+        el.style.display = 'block';
+        el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    async function procesarPago() {
+        if (!validarCampos()) return;
+
+        const btn = document.getElementById('btn-pay');
+        btn.textContent = 'Procesando...';
+        btn.disabled = true;
+
+        // Disparar submit del Brick para obtener cardFormData
+        const brickController = await mp.bricks().getController('cardPayment');
+        if (brickController) {
+            await brickController.getFormData();
+        }
+
+        // Pequeña espera para que onSubmit capture los datos
+        await new Promise(r => setTimeout(r, 300));
+
+        if (!cardFormData) {
+            mostrarFeedback('error', 'Por favor completá los datos de la tarjeta.');
+            btn.textContent = 'Comprar ahora';
+            btn.disabled = false;
+            return;
+        }
+
+        try {
+            const response = await fetch('/.netlify/functions/create-payment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    token: cardFormData.token,
+                    payment_method_id: cardFormData.payment_method_id,
+                    installments: cardFormData.installments || 1,
+                    issuer_id: cardFormData.issuer_id,
+                    payerEmail: document.getElementById('payer-email').value.trim(),
+                    payerName: document.getElementById('payer-name').value.trim(),
+                    payerDni: document.getElementById('payer-dni').value.trim(),
+                }),
+            });
+
+            const result = await response.json();
+
+            if (result.status === 'approved') {
+                window.location.href = '/success.html';
+            } else if (result.status === 'in_process' || result.status === 'pending') {
+                window.location.href = '/success.html';
+            } else {
+                mostrarFeedback('error', result.message || 'El pago no fue aprobado. Verificá los datos de tu tarjeta.');
+                btn.textContent = 'Comprar ahora';
+                btn.disabled = false;
+                cardFormData = null;
+            }
+        } catch (err) {
+            console.error(err);
+            mostrarFeedback('error', 'Hubo un error al procesar el pago. Por favor intentá de nuevo.');
+            btn.textContent = 'Comprar ahora';
+            btn.disabled = false;
+            cardFormData = null;
+        }
+    }
+</script>
+
+</body>
+</html>
