@@ -422,46 +422,10 @@
 
     const mp = new MercadoPago(MP_PUBLIC_KEY, { locale: 'es-AR' });
 
-    let cardFormData = null;
-
-    const bricks = mp.bricks();
-
-    bricks.create('cardPayment', 'cardPaymentBrick_container', {
-        initialization: {
-            amount: 18000,
-        },
-        customization: {
-            visual: {
-                hideFormTitle: true,
-                hidePaymentButton: true,
-                style: {
-                    theme: 'default',
-                    customVariables: {
-                        baseColor: '#e96126',
-                    }
-                }
-            },
-            paymentMethods: {
-                minInstallments: 1,
-                maxInstallments: 1,
-            },
-        },
-        callbacks: {
-            onReady: () => {
-                document.getElementById('btn-pay').disabled = false;
-            },
-            onSubmit: async (data) => {
-                cardFormData = data;
-            },
-            onError: (error) => {
-                console.error('MP Brick error:', error);
-            },
-        },
-    });
+    let brickController = null;
 
     function validarCampos() {
         let ok = true;
-
         const name = document.getElementById('payer-name');
         const email = document.getElementById('payer-email');
         const errorName = document.getElementById('error-name');
@@ -496,29 +460,13 @@
         el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
 
-    async function procesarPago() {
-        if (!validarCampos()) return;
-
+    function resetBtn() {
         const btn = document.getElementById('btn-pay');
-        btn.textContent = 'Procesando...';
-        btn.disabled = true;
+        btn.textContent = 'Comprar ahora';
+        btn.disabled = false;
+    }
 
-        // Disparar submit del Brick para obtener cardFormData
-        const brickController = await mp.bricks().getController('cardPayment');
-        if (brickController) {
-            await brickController.getFormData();
-        }
-
-        // Pequeña espera para que onSubmit capture los datos
-        await new Promise(r => setTimeout(r, 300));
-
-        if (!cardFormData) {
-            mostrarFeedback('error', 'Por favor completá los datos de la tarjeta.');
-            btn.textContent = 'Comprar ahora';
-            btn.disabled = false;
-            return;
-        }
-
+    async function enviarPago(cardFormData) {
         try {
             const response = await fetch('/.netlify/functions/create-payment', {
                 method: 'POST',
@@ -536,24 +484,68 @@
 
             const result = await response.json();
 
-            if (result.status === 'approved') {
-                window.location.href = '/success.html';
-            } else if (result.status === 'in_process' || result.status === 'pending') {
+            if (result.status === 'approved' || result.status === 'in_process' || result.status === 'pending') {
                 window.location.href = '/success.html';
             } else {
-                mostrarFeedback('error', result.message || 'El pago no fue aprobado. Verificá los datos de tu tarjeta.');
-                btn.textContent = 'Comprar ahora';
-                btn.disabled = false;
-                cardFormData = null;
+                mostrarFeedback('error', 'El pago no fue aprobado. Verificá los datos de tu tarjeta.');
+                resetBtn();
             }
         } catch (err) {
             console.error(err);
             mostrarFeedback('error', 'Hubo un error al procesar el pago. Por favor intentá de nuevo.');
-            btn.textContent = 'Comprar ahora';
-            btn.disabled = false;
-            cardFormData = null;
+            resetBtn();
         }
     }
+
+    function procesarPago() {
+        if (!validarCampos()) return;
+
+        const btn = document.getElementById('btn-pay');
+        btn.textContent = 'Procesando...';
+        btn.disabled = true;
+
+        // getFormData() valida el Brick y dispara onSubmit si todo está OK
+        brickController.getFormData();
+    }
+
+    // Inicializar Brick y guardar el controller
+    mp.bricks().create('cardPayment', 'cardPaymentBrick_container', {
+        initialization: {
+            amount: 18000,
+        },
+        customization: {
+            visual: {
+                hideFormTitle: true,
+                hidePaymentButton: true,
+                style: {
+                    theme: 'default',
+                    customVariables: {
+                        baseColor: '#e96126',
+                    }
+                }
+            },
+            paymentMethods: {
+                minInstallments: 1,
+                maxInstallments: 1,
+            },
+        },
+        callbacks: {
+            onReady: () => {
+                document.getElementById('btn-pay').disabled = false;
+            },
+            onSubmit: async (cardFormData) => {
+                // Se llama automáticamente cuando getFormData() tiene éxito
+                await enviarPago(cardFormData);
+            },
+            onError: (error) => {
+                console.error('MP Brick error:', error);
+                mostrarFeedback('error', 'Error en el formulario de tarjeta. Verificá los datos.');
+                resetBtn();
+            },
+        },
+    }).then(controller => {
+        brickController = controller;
+    });
 </script>
 
 </body>
