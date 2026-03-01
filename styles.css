@@ -146,7 +146,7 @@ body {
 
 .benefits-list {
     list-style: none;
-    max-width: 900px;
+    max-width: 680px;
     margin: 0 auto 40px;
     text-align: left;
 }
@@ -353,55 +353,22 @@ body {
 }
 
 /* For Who Section */
-.for-who-layout {
-    display: grid;
-    grid-template-columns: 35% 65%;
-    gap: 60px;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.for-who-image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.for-who-image img {
-    width: 100%;
-    max-width: 400px;
-    height: auto;
-    transform: rotate(-8deg);
-}
-
-.for-who-content {
-    color: var(--white);
-}
-
-.for-who-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 36px;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 25px;
-    margin-top: 30px;
-}
-
-.for-who-title:first-child {
-    margin-top: 0;
+#for-who {
+    text-align: center;
 }
 
 .for-who-list {
     list-style: none;
-    margin: 0 0 30px 0;
+    max-width: 680px;
+    margin: 0 auto 30px;
     padding: 0;
+    text-align: left;
 }
 
 .for-who-list li {
-    font-size: 20px;
-    line-height: 1.6;
-    margin-bottom: 12px;
+    font-size: 26px;
+    line-height: 1.7;
+    margin-bottom: 15px;
     color: var(--white);
 }
 
@@ -551,32 +518,21 @@ body {
 }
 
 /* FAQ Section */
-.faq-layout {
-    display: grid;
-    grid-template-columns: 40% 60%;
-    gap: 60px;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
+#faq {
+    text-align: center;
 }
 
-.faq-image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.faq-image img {
-    width: 100%;
-    max-width: 450px;
-    height: auto;
-    transform: rotate(-8deg);
+#faq .container {
+    padding-left: 18%;
+    padding-right: 18%;
 }
 
 .faq-content {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
+    text-align: left;
+}
+
+.faq-question {
+    margin-bottom: 30px;
 }
 
 .faq-question h4 {
@@ -645,16 +601,6 @@ body {
     }
 
     /* For Who Section responsive */
-    .for-who-layout {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-
-    .for-who-image img {
-        max-width: 300px;
-        transform: rotate(-5deg);
-    }
-
     .for-who-title {
         font-size: 28px;
         margin-top: 20px;
@@ -695,16 +641,6 @@ body {
     }
 
     /* FAQ responsive */
-    .faq-layout {
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-
-    .faq-image img {
-        max-width: 300px;
-        transform: rotate(-5deg);
-    }
-
     .faq-question h4 {
         font-size: 20px;
     }

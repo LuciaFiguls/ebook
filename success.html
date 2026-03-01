@@ -3,128 +3,119 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Pago exitoso! - De Invisible a Irresistible</title>
+    <title>¡Gracias por tu compra! - De Invisible a Irresistible</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Archivo:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Archivo', sans-serif;
             background-color: #e7dfd8;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 40px 20px;
+            padding: 60px 24px;
             text-align: center;
         }
 
-        .card {
-            background: #fff;
-            border-radius: 24px;
-            padding: 60px 48px;
-            max-width: 560px;
+        .wrapper {
+            max-width: 680px;
             width: 100%;
-            box-shadow: 0 4px 32px rgba(0,0,0,0.08);
         }
 
-        .check-icon {
-            width: 72px;
-            height: 72px;
-            background-color: #e96126;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 28px;
-        }
-
-        .check-icon svg {
-            width: 36px;
-            height: 36px;
-            stroke: white;
-            stroke-width: 3;
-            fill: none;
+        .megaphone {
+            width: 110px;
+            height: auto;
+            margin: 0 auto 32px;
+            display: block;
         }
 
         h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 32px;
-            color: #1a1a1a;
-            margin-bottom: 16px;
-            line-height: 1.2;
+            font-size: 56px;
+            font-weight: 700;
+            color: #e96126;
+            line-height: 1.1;
+            margin-bottom: 24px;
         }
 
         .subtitle {
             font-size: 18px;
-            color: #555;
-            line-height: 1.6;
-            margin-bottom: 32px;
+            font-weight: 700;
+            color: #327e56;
+            margin-bottom: 28px;
+            line-height: 1.5;
         }
 
-        .info-box {
-            background-color: #f9f6f3;
-            border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 32px;
-        }
-
-        .info-box p {
-            font-size: 15px;
-            color: #444;
+        .body-text {
+            font-size: 17px;
+            color: #2a2a2a;
             line-height: 1.7;
+            margin-bottom: 16px;
         }
 
-        .info-box strong {
-            color: #e96126;
+        .body-text + .body-text {
+            margin-bottom: 40px;
         }
 
-        .back-link {
+        .btn-download {
             display: inline-block;
-            color: #e96126;
-            font-size: 15px;
+            background-color: #e96126;
+            color: #fff;
+            font-family: 'Archivo', sans-serif;
+            font-size: 18px;
             font-weight: 500;
             text-decoration: none;
-            border-bottom: 1px solid #e96126;
-            padding-bottom: 2px;
+            padding: 18px 52px;
+            border-radius: 8px;
+            transition: opacity 0.2s;
         }
 
-        .back-link:hover {
-            opacity: 0.8;
+        .btn-download:hover {
+            opacity: 0.88;
         }
 
         footer {
-            margin-top: 40px;
-            font-size: 14px;
+            margin-top: 52px;
+            font-size: 13px;
             color: #888;
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 38px; }
+            .body-text { font-size: 16px; }
         }
     </style>
 </head>
 <body>
-    <div class="card">
-        <div class="check-icon">
-            <svg viewBox="0 0 24 24">
-                <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-        </div>
+    <div class="wrapper">
+        <img
+            src="https://d1yei2z3i6k35z.cloudfront.net/8070228/67fd28ab0558e_b48f48a0c5992871fb5d8cb6dfc70c0b.png"
+            alt="Megáfono"
+            class="megaphone"
+        >
 
-        <h1>¡Tu compra fue exitosa!</h1>
+        <h1>¡Gracias por tu compra!</h1>
 
-        <p class="subtitle">
-            Gracias por adquirir <strong>De Invisible a Irresistible</strong>.<br>
-            Ya estás un paso más cerca de una marca profesional.
+        <p class="subtitle">Te felicito por el primer paso hacia una marca más consciente y profesional.</p>
+
+        <p class="body-text">
+            Leela a tu ritmo, pero <strong>aplicala paso a paso</strong>. Al final de cada capítulo vas a encontrar ejemplos,
+            consejos prácticos y herramientas concretas que podés usar desde ahora.<br>
+            No se trata de diseñar "bonito", sino de <strong>comunicar con claridad, coherencia y confianza</strong>.
         </p>
 
-        <div class="info-box">
-            <p>
-                📩 <strong>Revisá tu bandeja de entrada</strong> — en unos minutos vas a recibir el ebook en el email con el que pagaste.<br><br>
-                Si no lo ves en inbox, chequeá la carpeta de <strong>spam o promociones</strong>.
-            </p>
-        </div>
+        <p class="body-text">
+            Porque una marca que se ve profesional, se percibe como confiable.<br>
+            Y eso, querida, vende.
+        </p>
 
-        <a href="/" class="back-link">← Volver al inicio</a>
+        <a href="https://www.canva.com/design/DAGo7bH9dBU/oTO1PwsOxy-ZSFN6QNs3Nw/edit?utm_content=DAGo7bH9dBU&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton" class="btn-download" target="_blank" rel="noopener">
+            Descargar Ebook
+        </a>
     </div>
 
     <footer>
