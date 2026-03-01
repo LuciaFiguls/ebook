@@ -32,7 +32,7 @@ exports.handler = async (event) => {
         description: 'Identidad visual para mujeres que emprenden',
         quantity: 1,
         currency_id: 'ARS',
-        unit_price: 100,
+        unit_price: 18000,
       },
     ],
     back_urls: {
