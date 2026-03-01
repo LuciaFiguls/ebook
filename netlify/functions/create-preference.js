@@ -18,7 +18,14 @@ exports.handler = async (event) => {
   const MP_ACCESS_TOKEN = process.env.MP_ACCESS_TOKEN;
   const SITE_URL = process.env.URL || 'https://tu-sitio.netlify.app';
 
+  let body = {};
+  try { body = JSON.parse(event.body || '{}'); } catch {}
+
   const preference = {
+    payer: {
+      name: body.payerName || '',
+      email: body.payerEmail || '',
+    },
     items: [
       {
         title: 'De Invisible a Irresistible - Ebook',

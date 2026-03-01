@@ -25,7 +25,6 @@
             min-height: 100vh;
         }
 
-        /* LAYOUT */
         .checkout-wrapper {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -75,7 +74,6 @@
             gap: 10px;
             font-size: 15px;
             line-height: 1.5;
-            color: var(--text);
         }
 
         .benefits-list li::before {
@@ -99,6 +97,14 @@
             display: flex;
             flex-direction: column;
             gap: 24px;
+            justify-content: center;
+        }
+
+        .checkout-panel h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text);
         }
 
         .form-group {
@@ -113,9 +119,7 @@
             color: var(--text);
         }
 
-        .form-group label .required {
-            color: var(--orange);
-        }
+        .form-group label .required { color: var(--orange); }
 
         .form-group input {
             width: 100%;
@@ -129,69 +133,13 @@
             transition: border-color 0.2s;
         }
 
-        .form-group input:focus {
-            border-color: var(--orange);
-        }
-
-        .form-group input.error {
-            border-color: #e53e3e;
-        }
+        .form-group input:focus { border-color: var(--orange); }
+        .form-group input.error { border-color: #e53e3e; }
 
         .field-error {
             font-size: 12px;
             color: #e53e3e;
             display: none;
-        }
-
-        /* Método de pago */
-        .payment-method-label {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--text);
-        }
-
-        .payment-method-label .required {
-            color: var(--orange);
-        }
-
-        .method-selector {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px 16px;
-            border: 1.5px solid var(--border);
-            border-radius: 8px 8px 0 0;
-            background: #fafafa;
-        }
-
-        .method-selector input[type="radio"] {
-            accent-color: var(--orange);
-            width: 16px;
-            height: 16px;
-        }
-
-        .method-selector span {
-            font-size: 14px;
-            font-weight: 500;
-            flex: 1;
-        }
-
-        .card-brands {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-        }
-
-        .card-brands img {
-            height: 20px;
-        }
-
-        #cardPaymentBrick_container {
-            border: 1.5px solid var(--border);
-            border-top: none;
-            border-radius: 0 0 8px 8px;
-            padding: 16px;
-            min-height: 120px;
         }
 
         /* Resumen */
@@ -207,76 +155,28 @@
             color: var(--orange);
             padding: 12px 16px;
             border-bottom: 1px solid var(--border);
+            background: #fafafa;
         }
 
         .order-item {
             display: flex;
             align-items: center;
-            gap: 12px;
-            padding: 14px 16px;
-        }
-
-        .order-item-radio {
-            accent-color: var(--orange);
-            width: 16px;
-            height: 16px;
+            justify-content: space-between;
+            padding: 16px;
         }
 
         .order-item-name {
-            flex: 1;
             font-size: 14px;
             font-weight: 500;
         }
 
         .order-item-price {
-            font-size: 14px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .currency-badge {
-            background: #e0e0e0;
-            border-radius: 4px;
-            padding: 2px 6px;
-            font-size: 11px;
+            font-size: 16px;
             font-weight: 700;
-            color: #444;
+            color: var(--green);
         }
 
-        /* Cupón */
-        .coupon-row {
-            display: flex;
-            gap: 8px;
-            padding: 12px 16px;
-            border-top: 1px solid var(--border);
-        }
-
-        .coupon-row input {
-            flex: 1;
-            padding: 9px 12px;
-            border: 1.5px solid var(--border);
-            border-radius: 6px;
-            font-size: 14px;
-            font-family: 'Archivo', sans-serif;
-            outline: none;
-            color: var(--muted);
-        }
-
-        .coupon-row button {
-            padding: 9px 16px;
-            background: #555;
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            font-family: 'Archivo', sans-serif;
-        }
-
-        /* Botón pagar */
+        /* Botón */
         .btn-pay {
             width: 100%;
             padding: 16px;
@@ -295,6 +195,17 @@
         .btn-pay:active { transform: scale(0.99); }
         .btn-pay:disabled { opacity: 0.6; cursor: not-allowed; }
 
+        .mp-badge {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .mp-badge img { height: 18px; opacity: 0.7; }
+
         /* Feedback */
         .payment-feedback {
             padding: 14px 16px;
@@ -302,12 +213,6 @@
             font-size: 14px;
             font-weight: 500;
             display: none;
-        }
-
-        .payment-feedback.success {
-            background: #f0fdf4;
-            color: #166534;
-            border: 1px solid #bbf7d0;
         }
 
         .payment-feedback.error {
@@ -318,15 +223,10 @@
 
         /* RESPONSIVE */
         @media (max-width: 768px) {
-            .checkout-wrapper {
-                grid-template-columns: 1fr;
-            }
-
-            .product-panel, .checkout-panel {
-                padding: 40px 24px;
-            }
-
+            .checkout-wrapper { grid-template-columns: 1fr; }
+            .product-panel, .checkout-panel { padding: 40px 24px; }
             .product-panel h1 { font-size: 26px; }
+            .checkout-panel { justify-content: flex-start; }
         }
     </style>
 </head>
@@ -334,14 +234,14 @@
 
 <div class="checkout-wrapper">
 
-    <!-- PANEL IZQUIERDO: Info del producto -->
+    <!-- PANEL IZQUIERDO -->
     <div class="product-panel">
         <div>
             <h1>De Invisible a Irresistible</h1>
             <h2>Ebook de diseño de marca</h2>
         </div>
 
-        <img src="images/FAQ-Image-nobg.png" alt="De Invisible a Irresistible - Ebook" class="product-cover">
+        <img src="images/FAQ-Image-nobg.png" alt="De Invisible a Irresistible" class="product-cover">
 
         <ul class="benefits-list">
             <li>Definir tu identidad visual.</li>
@@ -357,8 +257,10 @@
         </ul>
     </div>
 
-    <!-- PANEL DERECHO: Formulario de pago -->
+    <!-- PANEL DERECHO -->
     <div class="checkout-panel">
+
+        <h3>Completá tus datos para continuar</h3>
 
         <div class="form-group">
             <label>Nombre <span class="required">*</span></label>
@@ -372,58 +274,29 @@
             <span class="field-error" id="error-email">Ingresá un email válido</span>
         </div>
 
-        <div class="form-group">
-            <input type="text" id="payer-dni" placeholder="DNI" autocomplete="off">
-        </div>
-
-        <div>
-            <p class="payment-method-label">Método de pago <span class="required">*</span></p>
-            <div class="method-selector">
-                <input type="radio" checked readonly>
-                <span>Tarjeta de crédito o débito (MercadoPago)</span>
-                <div class="card-brands">
-                    <img src="https://http2.mlstatic.com/frontend-assets/mp-web-navigation/ui-navigation/5.21.22/mercadopago/logos/visa.svg" alt="Visa">
-                    <img src="https://http2.mlstatic.com/frontend-assets/mp-web-navigation/ui-navigation/5.21.22/mercadopago/logos/mastercard.svg" alt="Mastercard">
-                    <img src="https://http2.mlstatic.com/frontend-assets/mp-web-navigation/ui-navigation/5.21.22/mercadopago/logos/amex.svg" alt="Amex">
-                </div>
-            </div>
-            <div id="cardPaymentBrick_container"></div>
-        </div>
-
         <div class="order-summary">
-            <p class="order-summary-title">Detalles de la compra</p>
+            <p class="order-summary-title">Resumen de la compra</p>
             <div class="order-item">
-                <input type="radio" class="order-item-radio" checked readonly>
                 <span class="order-item-name">Ebook De Invisible a Irresistible</span>
-                <span class="order-item-price">
-                    <span class="currency-badge">ARS</span>
-                    18.000,00 $
-                </span>
-            </div>
-            <div class="coupon-row">
-                <input type="text" placeholder="cupon descuento" id="coupon-input">
-                <button type="button">Aplicar</button>
+                <span class="order-item-price">$18.000 ARS</span>
             </div>
         </div>
 
         <div class="payment-feedback" id="payment-feedback"></div>
 
         <button class="btn-pay" id="btn-pay" type="button" onclick="procesarPago()">
-            Comprar ahora
+            Ir a pagar con MercadoPago
         </button>
+
+        <div class="mp-badge">
+            <span>Pago seguro procesado por</span>
+            <img src="https://http2.mlstatic.com/frontend-assets/mp-web-navigation/ui-navigation/5.21.22/mercadopago/logos/mercadopago.svg" alt="MercadoPago">
+        </div>
 
     </div>
 </div>
 
-<!-- SDK MercadoPago -->
-<script src="https://sdk.mercadopago.com/js/v2"></script>
 <script>
-    const MP_PUBLIC_KEY = 'TEST-313c6ac5-9885-4f91-8c09-01f2da66d0ea';
-
-    const mp = new MercadoPago(MP_PUBLIC_KEY, { locale: 'es-AR' });
-
-    let brickController = null;
-
     function validarCampos() {
         let ok = true;
         const name = document.getElementById('payer-name');
@@ -442,8 +315,7 @@
             ok = false;
         }
 
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(email.value.trim())) {
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
             email.classList.add('error');
             errorEmail.style.display = 'block';
             ok = false;
@@ -452,100 +324,40 @@
         return ok;
     }
 
-    function mostrarFeedback(tipo, mensaje) {
-        const el = document.getElementById('payment-feedback');
-        el.className = `payment-feedback ${tipo}`;
-        el.textContent = mensaje;
-        el.style.display = 'block';
-        el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-
-    function resetBtn() {
-        const btn = document.getElementById('btn-pay');
-        btn.textContent = 'Comprar ahora';
-        btn.disabled = false;
-    }
-
-    async function enviarPago(cardFormData) {
-        try {
-            const response = await fetch('/.netlify/functions/create-payment', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    token: cardFormData.token,
-                    payment_method_id: cardFormData.payment_method_id,
-                    installments: cardFormData.installments || 1,
-                    issuer_id: cardFormData.issuer_id,
-                    payerEmail: document.getElementById('payer-email').value.trim(),
-                    payerName: document.getElementById('payer-name').value.trim(),
-                    payerDni: document.getElementById('payer-dni').value.trim(),
-                }),
-            });
-
-            const result = await response.json();
-
-            if (result.status === 'approved' || result.status === 'in_process' || result.status === 'pending') {
-                window.location.href = '/success.html';
-            } else {
-                mostrarFeedback('error', 'El pago no fue aprobado. Verificá los datos de tu tarjeta.');
-                resetBtn();
-            }
-        } catch (err) {
-            console.error(err);
-            mostrarFeedback('error', 'Hubo un error al procesar el pago. Por favor intentá de nuevo.');
-            resetBtn();
-        }
-    }
-
-    function procesarPago() {
+    async function procesarPago() {
         if (!validarCampos()) return;
 
         const btn = document.getElementById('btn-pay');
-        btn.textContent = 'Procesando...';
+        btn.textContent = 'Redirigiendo a MercadoPago...';
         btn.disabled = true;
 
-        // getFormData() valida el Brick y dispara onSubmit si todo está OK
-        brickController.getFormData();
-    }
+        try {
+            const response = await fetch('/.netlify/functions/create-preference', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    payerName: document.getElementById('payer-name').value.trim(),
+                    payerEmail: document.getElementById('payer-email').value.trim(),
+                }),
+            });
 
-    // Inicializar Brick y guardar el controller
-    mp.bricks().create('cardPayment', 'cardPaymentBrick_container', {
-        initialization: {
-            amount: 18000,
-        },
-        customization: {
-            visual: {
-                hideFormTitle: true,
-                hidePaymentButton: true,
-                style: {
-                    theme: 'default',
-                    customVariables: {
-                        baseColor: '#e96126',
-                    }
-                }
-            },
-            paymentMethods: {
-                minInstallments: 1,
-                maxInstallments: 1,
-            },
-        },
-        callbacks: {
-            onReady: () => {
-                document.getElementById('btn-pay').disabled = false;
-            },
-            onSubmit: async (cardFormData) => {
-                // Se llama automáticamente cuando getFormData() tiene éxito
-                await enviarPago(cardFormData);
-            },
-            onError: (error) => {
-                console.error('MP Brick error:', error);
-                mostrarFeedback('error', 'Error en el formulario de tarjeta. Verificá los datos.');
-                resetBtn();
-            },
-        },
-    }).then(controller => {
-        brickController = controller;
-    });
+            const data = await response.json();
+
+            if (data.init_point) {
+                window.location.href = data.init_point;
+            } else {
+                throw new Error('No se recibió el link de pago');
+            }
+        } catch (err) {
+            console.error(err);
+            const fb = document.getElementById('payment-feedback');
+            fb.className = 'payment-feedback error';
+            fb.textContent = 'Hubo un error al iniciar el pago. Por favor intentá de nuevo.';
+            fb.style.display = 'block';
+            btn.textContent = 'Ir a pagar con MercadoPago';
+            btn.disabled = false;
+        }
+    }
 </script>
 
 </body>
