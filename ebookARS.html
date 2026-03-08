@@ -324,12 +324,36 @@
 </div>
 
 <script>
+    function getUserId() {
+        try {
+            let userId = localStorage.getItem('tracking_user_id');
+            if (!userId) {
+                userId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                    const r = Math.random() * 16 | 0;
+                    const v = c === 'x' ? r : (r & 0x3 | 0x8);
+                    return v.toString(16);
+                });
+                localStorage.setItem('tracking_user_id', userId);
+            }
+            return userId;
+        } catch(e) {
+            return 'temp_' + Date.now();
+        }
+    }
+
     function getUTMs() {
         const params = new URLSearchParams(window.location.search);
         const utms = {};
         ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(key => {
             if (params.get(key)) utms[key] = params.get(key);
         });
+        // Fallback: UTMs guardados por tracking.js en sessionStorage
+        if (Object.keys(utms).length === 0) {
+            try {
+                const stored = JSON.parse(sessionStorage.getItem('utm_params') || '{}');
+                Object.assign(utms, stored);
+            } catch(e) {}
+        }
         return utms;
     }
 
@@ -337,7 +361,7 @@
         fetch('/.netlify/functions/track', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ...payload, ...getUTMs() }),
+            body: JSON.stringify({ ...payload, user_id: getUserId(), ...getUTMs() }),
         }).catch(() => {});
     }
 
