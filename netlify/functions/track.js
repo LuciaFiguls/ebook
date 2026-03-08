@@ -16,10 +16,7 @@ exports.handler = async (event) => {
   }
 
   const N8N_TRACKING_URL = process.env.N8N_TRACKING_URL;
-
-  if (!N8N_TRACKING_URL) {
-    return { statusCode: 200, body: 'Tracking not configured' };
-  }
+  const GOOGLE_SHEETS_WEBHOOK_URL = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
 
   let body = {};
   try { body = JSON.parse(event.body || '{}'); } catch {}
@@ -32,15 +29,37 @@ exports.handler = async (event) => {
     ...body,
   };
 
-  try {
-    await fetch(N8N_TRACKING_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-  } catch (err) {
-    console.error('Tracking error:', err);
+  const sends = [];
+
+  if (N8N_TRACKING_URL) {
+    sends.push(
+      fetch(N8N_TRACKING_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      }).catch(err => console.error('n8n error:', err))
+    );
   }
+
+  if (GOOGLE_SHEETS_WEBHOOK_URL) {
+    const sheetsPayload = {
+      events: [{ ...payload }],
+      session_info: {
+        user_agent: event.headers['user-agent'] || '',
+        total_events: 1,
+        source: 'checkout',
+      },
+    };
+    sends.push(
+      fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(sheetsPayload),
+      }).catch(err => console.error('Google Sheets error:', err))
+    );
+  }
+
+  await Promise.all(sends);
 
   return {
     statusCode: 200,
