@@ -294,11 +294,20 @@
 </div>
 
 <script>
+    function getUTMs() {
+        const params = new URLSearchParams(window.location.search);
+        const utms = {};
+        ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'].forEach(key => {
+            if (params.get(key)) utms[key] = params.get(key);
+        });
+        return utms;
+    }
+
     function track(payload) {
         fetch('/.netlify/functions/track', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
+            body: JSON.stringify({ ...payload, ...getUTMs() }),
         }).catch(() => {});
     }
 
