@@ -294,6 +294,23 @@
 </div>
 
 <script>
+    function track(payload) {
+        fetch('/.netlify/functions/track', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+        }).catch(() => {});
+    }
+
+    // Page view
+    document.addEventListener('DOMContentLoaded', function () {
+        track({
+            event: 'page_view',
+            url: window.location.href,
+            referrer: document.referrer,
+        });
+    });
+
     function validarCampos() {
         let ok = true;
         const name = document.getElementById('payer-name');
@@ -328,6 +345,13 @@
         btn.textContent = 'Redirigiendo a MercadoPago...';
         btn.disabled = true;
 
+        // Track button click
+        track({
+            event: 'payment_click',
+            url: window.location.href,
+            referrer: document.referrer,
+        });
+
         try {
             const response = await fetch('/.netlify/functions/create-preference', {
                 method: 'POST',
@@ -347,6 +371,15 @@
             }
         } catch (err) {
             console.error(err);
+
+            // Track error
+            track({
+                event: 'payment_error',
+                url: window.location.href,
+                referrer: document.referrer,
+                error: err.message || 'unknown error',
+            });
+
             const fb = document.getElementById('payment-feedback');
             fb.className = 'payment-feedback error';
             fb.textContent = 'Hubo un error al iniciar el pago. Por favor intentá de nuevo.';
