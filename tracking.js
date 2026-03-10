@@ -344,6 +344,11 @@
         });
       }
 
+      // Meta Pixel - evento personalizado al llegar al CTA final
+      if (sectionData.id === 'final-cta' && typeof fbq !== 'undefined') {
+        fbq('trackCustom', 'ViewFinalCTA');
+      }
+
       // Backup
       EventBackup.save('section_view', eventData);
 
