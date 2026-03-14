@@ -413,6 +413,8 @@
             event: 'payment_click',
             url: window.location.href,
             referrer: document.referrer,
+            payer_email: document.getElementById('payer-email').value.trim(),
+            payer_name: document.getElementById('payer-name').value.trim(),
         });
 
         // Meta Pixel - InitiateCheckout

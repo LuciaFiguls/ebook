@@ -33,7 +33,7 @@ exports.handler = async (event) => {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      email: payment.payer.email,
+      email: payment.external_reference || payment.payer.email,
       name: payment.payer.first_name || '',
       last_name: payment.payer.last_name || '',
       payment_id: payment.id,

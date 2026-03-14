@@ -22,6 +22,7 @@ exports.handler = async (event) => {
   try { body = JSON.parse(event.body || '{}'); } catch {}
 
   const preference = {
+    external_reference: body.payerEmail || '',
     payer: {
       name: body.payerName || '',
       email: body.payerEmail || '',
