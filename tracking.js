@@ -265,13 +265,13 @@
   const ScrollTracker = {
     sections: [
       { id: 'hero', name: 'Hero - Título Principal' },
+      { id: 'for-who', name: 'Para Quién Es' },
       { id: 'benefits', name: 'Beneficios' },
+      { id: 'why', name: 'Por Qué Lo Creé' },
       { id: 'video', name: 'Video 3 Tips' },
       { id: 'testimonials', name: 'Testimonios' },
-      { id: 'pricing', name: 'Precio' },
-      { id: 'for-who', name: 'Para Quién Es' },
-      { id: 'why', name: 'Por Qué Lo Creé' },
       { id: 'modules', name: 'Módulos' },
+      { id: 'pricing', name: 'Precio' },
       { id: 'faq', name: 'FAQ' },
       { id: 'final-cta', name: 'CTA Final' }
     ],
