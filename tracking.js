@@ -344,6 +344,12 @@
         });
       }
 
+      // Meta Pixel - ViewContent al llegar a sección 2 (Para Quién Es)
+      // Dispara un evento estándar de Meta para alimentar la optimización de campañas
+      if (sectionData.id === 'for-who' && typeof fbq !== 'undefined') {
+        fbq('trackCustom', 'ViewSeccion2ParaQuienEs');
+      }
+
       // Meta Pixel - evento personalizado al llegar al CTA final
       if (sectionData.id === 'final-cta' && typeof fbq !== 'undefined') {
         fbq('trackCustom', 'ViewFinalCTA');
