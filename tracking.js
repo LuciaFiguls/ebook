@@ -501,15 +501,20 @@
       const sectionId = button.closest('.section')?.id || button.closest('section')?.id || 'unknown';
       const destinationURL = button.href;
 
-      // Agregar UTMs a la URL de destino
+      // Agregar UTMs + user_id + button_position + section_id a la URL de destino
       const urlWithUTM = UTMManager.appendToURL(destinationURL);
-      button.href = urlWithUTM;
+      const urlObj = new URL(urlWithUTM);
+      urlObj.searchParams.set('uid', UserIDManager.getUserID());
+      urlObj.searchParams.set('bp', index + 1);
+      urlObj.searchParams.set('sid', sectionId);
+      const finalURL = urlObj.toString();
+      button.href = finalURL;
 
       const eventData = {
         button_text: buttonText,
         section_id: sectionId,
         button_position: index + 1,
-        destination_url: urlWithUTM,
+        destination_url: finalURL,
         time_on_page: ScrollTracker.getTimeOnPage(),
         user_id: UserIDManager.getUserID()
       };

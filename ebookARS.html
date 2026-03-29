@@ -337,6 +337,13 @@
 <script>
     function getUserId() {
         try {
+            // Primero intentar leer uid desde la URL (pasado desde la landing)
+            const params = new URLSearchParams(window.location.search);
+            const uidFromURL = params.get('uid');
+            if (uidFromURL) {
+                localStorage.setItem('tracking_user_id', uidFromURL);
+                return uidFromURL;
+            }
             let userId = localStorage.getItem('tracking_user_id');
             if (!userId) {
                 userId = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -350,6 +357,14 @@
         } catch(e) {
             return 'temp_' + Date.now();
         }
+    }
+
+    function getLandingParams() {
+        const params = new URLSearchParams(window.location.search);
+        const result = {};
+        if (params.get('bp')) result.button_position = params.get('bp');
+        if (params.get('sid')) result.section_id_origin = params.get('sid');
+        return result;
     }
 
     function getUTMs() {
@@ -382,6 +397,7 @@
             event: 'page_view',
             url: window.location.href,
             referrer: document.referrer,
+            ...getLandingParams(),
         });
     });
 

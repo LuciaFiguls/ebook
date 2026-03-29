@@ -591,7 +591,10 @@ body {
         flex-direction: column;
     }
 
-    #hero .hero-image,
+    #hero .hero-image {
+        display: none;
+    }
+
     #hero .hero-text {
         min-width: 100%;
     }
@@ -698,6 +701,29 @@ body {
     .why-content p {
         font-size: 18px;
     }
+}
+
+
+/* Bloque inferior Hero */
+.hero-bottom {
+    margin-top: 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.hero-social-proof {
+    font-size: 15px;
+    color: var(--gray);
+}
+
+.scroll-link {
+    font-size: 15px;
+    color: var(--orange-primary);
+    text-decoration: underline;
+    font-weight: 600;
 }
 
 /* Animaciones */
