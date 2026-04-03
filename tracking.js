@@ -350,6 +350,10 @@
         fbq('trackCustom', 'ViewSeccion2ParaQuienEs');
       }
 
+      if (sectionData.id === 'testimonials' && typeof fbq !== 'undefined') {
+        fbq('trackCustom', 'ViewSeccion6Testimonios');
+      }
+
       // Meta Pixel - evento personalizado al llegar al CTA final
       if (sectionData.id === 'final-cta' && typeof fbq !== 'undefined') {
         fbq('trackCustom', 'ViewFinalCTA');
